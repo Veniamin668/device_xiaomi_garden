@@ -35,7 +35,7 @@ if [ -z "$1" -a -z "$FOX_BUILD_DEVICE" ]; then
 fi
 
 if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
-	export TW_DEFAULT_LANGUAGE="en"
+	export TW_DEFAULT_LANGUAGE="ru"
 	export LC_ALL="C"
 	export ALLOW_MISSING_DEPENDENCIES=true
 
@@ -67,7 +67,7 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 	export FOX_ENABLE_APP_MANAGER=1
 
 	# R11.1 Settings
-    export FOX_MAINTAINER_PATCH_VERSION="1"
+    export FOX_MAINTAINER_PATCH_VERSION="2"
 	export OF_MAINTAINER="ktoya?"
 
 	# OTA
