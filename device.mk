@@ -22,6 +22,9 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 # Installs gsi keys into ramdisk, to boot a developer GSI with verified boot.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
+# AERA Recovery device configuration
+$(call inherit-product, $(LOCAL_PATH)/aera_garden.mk)
+
 # Fastbootd
 PRODUCT_PACKAGES += \
 	android.hardware.fastboot@1.0-impl-mock
