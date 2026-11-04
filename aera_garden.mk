@@ -29,3 +29,7 @@ PRODUCT_NAME := twrp_garden
 PRODUCT_BRAND := xiaomi
 PRODUCT_MODEL := Redmi 9A
 PRODUCT_MANUFACTURER := xiaomi
+
+# AERA configuration
+AERA_INCLUDE_CRYPTO := true
+AERA_ENABLE_WLAN := 1
