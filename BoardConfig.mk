@@ -1,17 +1,9 @@
+
 #
 # Copyright (C) 2022 The Android Open Source Project
+# Copyright (C) 2026 AERA Recovery Project device adaptation
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# SPDX-License-Identifier: Apache-2.0
 #
 
 DEVICE_PATH := device/xiaomi/garden
@@ -37,15 +29,15 @@ TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a53
 TARGET_USES_64_BIT_BINDER := true
 TARGET_SUPPORTS_64_BIT_APPS := true
 
-# Build
+# Build compatibility
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 BUILD_BROKEN_MISSING_REQUIRED_MODULES := true
 
 # Kernel
 BOARD_KERNEL_CMDLINE := \
-	bootopt=64S3,32N2,64N2 \
-	androidboot.selinux=permissive
+    bootopt=64S3,32N2,64N2 \
+    androidboot.selinux=permissive
 
 BOARD_INCLUDE_RECOVERY_DTBO := true
 BOARD_BOOTIMG_HEADER_VERSION := 2
@@ -53,7 +45,7 @@ BOARD_KERNEL_BASE := 0x40078000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_RAMDISK_OFFSET := 0x11a88000
 BOARD_KERNEL_TAGS_OFFSET := 0x07808000
-BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
+BOARD_FLASH_BLOCK_SIZE := 131072
 
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
@@ -74,20 +66,21 @@ BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
 TARGET_COPY_OUT_VENDOR := vendor
 
 # Partitions
-BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
+
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
+TARGET_USES_MKE2FS := true
 
-# Dynamic Partitions
+# Dynamic partitions
 BOARD_SUPER_PARTITION_SIZE := 9126805504
 BOARD_SUPER_PARTITION_GROUPS := main
 BOARD_MAIN_SIZE := 9126805504
 BOARD_MAIN_PARTITION_LIST := \
-	system \
-	vendor \
-	product
+    system \
+    vendor \
+    product
 
 # System as Root
 BOARD_SUPPRESS_SECURE_ERASE := true
@@ -103,31 +96,36 @@ BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 2
 
-# Crypto
-TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_CRYPTO_FBE := true
+# Encryption / FBE
+AERA_INCLUDE_CRYPTO := true
+AERA_INCLUDE_CRYPTO_FBE := true
 
-# Encryption
-PLATFORM_SECURITY_PATCH := 2127-12-31
-PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
+# Keep the existing garden encryption compatibility values.
 PLATFORM_VERSION := 127
+PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
+PLATFORM_SECURITY_PATCH := 2127-12-31
 VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
 
-# TWRP Configuration
-TW_THEME := portrait_hdpi
-TW_EXTRA_LANGUAGES := true
-TW_SCREEN_BLANK_ON_BOOT := true
-TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_EXCLUDE_DEFAULT_USB_INIT := true
-TW_USE_TOOLBOX := true
-TW_INCLUDE_RESETPROP := true
-TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
-TW_DEFAULT_BRIGHTNESS := 900
-TW_MAX_BRIGHTNESS := 2047
-TW_INCLUDE_NTFS_3G := true
-TARGET_USES_MKE2FS := true
-TW_INCLUDE_PYTHON := true
+# AERA Recovery configuration
+AERA_THEME := portrait_hdpi
+AERA_DEFAULT_LANGUAGE := ru
+
+AERA_SCREEN_BLANK_ON_BOOT := true
+AERA_INPUT_BLACKLIST := "hbtp_vm"
+
+# The device tree provides its own MTK USB init.
+AERA_EXCLUDE_DEFAULT_USB_INIT := true
+
+AERA_USE_TOOLBOX := true
+AERA_INCLUDE_RESETPROP := true
+AERA_INCLUDE_PYTHON := true
+AERA_INCLUDE_NTFS_3G := true
+
+# Display
+AERA_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
+AERA_DEFAULT_BRIGHTNESS := 900
+AERA_MAX_BRIGHTNESS := 2047
 
 # Debug
-TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
+AERA_INCLUDE_LOGCAT := true
