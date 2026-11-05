@@ -20,7 +20,7 @@ LOCAL_PATH := device/xiaomi/garden
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 # Installs gsi keys into ramdisk, to boot a developer GSI with verified boot.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
+# $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
 # Fastbootd
 PRODUCT_PACKAGES += \
