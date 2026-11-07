@@ -1,3 +1,4 @@
+import /init.recovery.wifi.rc
 import /init.recovery.microtrust.rc
 
 on init
@@ -7,7 +8,6 @@ on init
     export PATH /sbin:/system/bin:/vendor/bin:/vendor/bin/hw
 
 on fs
-    install_keyring
     setprop crypto.ready 1
 
 service keystore_auth /system/bin/keystore_auth

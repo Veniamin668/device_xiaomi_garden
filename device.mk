@@ -19,17 +19,18 @@ LOCAL_PATH := device/xiaomi/garden
 # Dynamic Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
-# Installs gsi keys into ramdisk, to boot a developer GSI with verified boot.
-# $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += $(LOCAL_PATH)
 
-# AERA Recovery device configuration
-$(call inherit-product, $(LOCAL_PATH)/aera_garden.mk)
+# Audio Bridge
+PRODUCT_PACKAGES += \
+	aera-audio-bridge
 
 # Fastbootd
 PRODUCT_PACKAGES += \
 	android.hardware.fastboot@1.0-impl-mock
 
-# MT6762 Init
+# MT6762 / MT6765 Init
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/recovery/root/init.recovery.mt6765.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.mt6762.rc
 

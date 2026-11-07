@@ -1,0 +1,72 @@
+on post-fs-data
+    # Wi-Fi directory setup
+    mkdir /data/misc 01771 system misc
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    mkdir /data/vendor/wifi 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
+    mkdir /data/vendor/stp_dump 0755 system system
+    mkdir /data/vendor/connsyslog 0755 system system
+
+on boot
+    mkdir /tmp/wifi 0770 root root
+    mkdir /tmp/wifi/sockets 0770 root root
+    mkdir /tmp/misc 0770 root root
+    mkdir /tmp/misc/wifi 0770 root root
+    mkdir /tmp/recovery 0777 root root
+    mkdir /tmp/recovery/sockets 0777 root root
+    mkdir /data/misc 01771 system misc
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/vendor/wifi 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
+
+    # Load connectivity base driver
+    insmod /vendor/lib/modules/wmt_drv.ko
+
+    # Start WMT loader & launcher
+    start wmt_loader
+    start wmt_launcher
+
+on property:vendor.connsys.driver.ready=yes
+    insmod /vendor/lib/modules/wmt_chrdev_wifi.ko
+    insmod /vendor/lib/modules/wlan_drv_gen4m.ko
+    start wlan_assistant
+
+on property:sys.aera.wlan.up=1
+    mkdir /tmp/recovery 0777 root root
+    mkdir /tmp/recovery/sockets 0777 root root
+    start wpa_supplicant
+    setprop sys.aera.wlan.up 0
+
+service wmt_loader /vendor/bin/wmt_loader
+    class early_hal
+    user root
+    group root system wifi
+    oneshot
+    disabled
+    seclabel u:r:recovery:s0
+
+service wmt_launcher /vendor/bin/wmt_launcher -p /vendor/firmware/ -o 1
+    class early_hal
+    user root
+    group root system wifi
+    disabled
+    seclabel u:r:recovery:s0
+
+service wlan_assistant /vendor/bin/wlan_assistant
+    class main
+    user root
+    group root system gps inet wifi
+    disabled
+    seclabel u:r:recovery:s0
+
+service wpa_supplicant /vendor/bin/hw/wpa_supplicant     -Dnl80211 -iwlan0 -c/vendor/etc/wifi/wpa_supplicant.conf     -O/tmp/recovery/sockets -dd
+    user root
+    group root wifi inet keystore
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0

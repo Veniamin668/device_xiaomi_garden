@@ -1,3 +1,6 @@
+# Display
+ro.sf.lcd_density=320
+
 # USB
 ro.sys.usb.storage.type=mtp
 
@@ -13,3 +16,10 @@ ro.hardware.gatekeeper=beanpod
 
 # Kmsetkey
 ro.hardware.kmsetkey=beanpod
+
+# Wi-Fi
+ro.vendor.wlan.gen=gen4m
+ro.vendor.wifi.sap.interface=ap0
+wifi.interface=wlan0
+wifi.direct.interface=p2p0
+ro.vendor.wlan.chrdev=wmt_chrdev_wifi

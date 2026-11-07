@@ -86,14 +86,13 @@ if [ "$1" = "$FDEVICE" ] || [ "$AERA_BUILD_DEVICE" = "$FDEVICE" ]; then
     export AERA_NO_MIUI_PATCH_WARNING=1
 
     # Backup
-    export AERA_QUICK_BACKUP_LIST="/boot;/data;"
+    # export AERA_QUICK_BACKUP_LIST defined in twrp_garden.mk
 
     # AVB
     export AERA_PATCH_AVB20=1
 
     # OTA
     export AERA_KEEP_DM_VERITY=1
-    export AERA_SUPPORT_ALL_BLOCK_OTA_UPDATES=1
     export AERA_FIX_OTA_UPDATE_MANUAL_FLASH_ERROR=1
     export AERA_DISABLE_MIUI_OTA_BY_DEFAULT=1
 

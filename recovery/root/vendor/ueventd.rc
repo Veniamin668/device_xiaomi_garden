@@ -135,3 +135,6 @@
 
 # TrustKernel add
 /dev/tkcoredrv            0660   system     system
+
+# Audio / ALSA
+/dev/snd/*                0660   system     audio
