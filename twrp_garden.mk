@@ -28,7 +28,7 @@ PRODUCT_MANUFACTURER := Xiaomi
 # AERA maintainer information
 #
 
-AERA_MAINTAINER := KSN522
+AERA_MAINTAINER := KSN522 | насрал ktoya? ХУЙ,ДЕНЬГИ ЖОПА
 AERA_BUILD_STATUS := Unofficial
 AERA_MAINTAINER_PATCH_VERSION := 1
 
